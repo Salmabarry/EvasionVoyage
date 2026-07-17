@@ -1,0 +1,111 @@
+/* ==========================================================================
+   EvasionVoyage — variables de thème (portées depuis src/styles.css)
+   ========================================================================== */
+
+:root {
+  --radius: 1rem;
+
+  --background: oklch(0.985 0.008 85);
+  --foreground: oklch(0.18 0.04 240);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.04 240);
+
+  --primary: oklch(0.28 0.09 235);
+  --primary-foreground: oklch(0.985 0.008 85);
+
+  --secondary: oklch(0.94 0.02 85);
+  --secondary-foreground: oklch(0.18 0.04 240);
+
+  --muted: oklch(0.95 0.012 85);
+  --muted-foreground: oklch(0.5 0.02 240);
+
+  --accent: oklch(0.72 0.16 55);
+  --accent-foreground: oklch(0.15 0.03 240);
+
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --border: oklch(0.9 0.015 85);
+  --input: oklch(0.9 0.015 85);
+  --ring: oklch(0.55 0.12 220);
+
+  --ocean: oklch(0.55 0.12 220);
+  --ocean-deep: oklch(0.28 0.09 235);
+  --sand: oklch(0.9 0.04 75);
+  --ember: oklch(0.72 0.16 55);
+  --cream: oklch(0.97 0.02 85);
+
+  --gradient-hero: linear-gradient(180deg, oklch(0.15 0.05 240 / 0.15), oklch(0.15 0.05 240 / 0.75));
+  --gradient-ocean: linear-gradient(135deg, oklch(0.28 0.09 235), oklch(0.45 0.13 220));
+  --gradient-ember: linear-gradient(135deg, oklch(0.72 0.16 55), oklch(0.65 0.19 35));
+  --shadow-soft: 0 10px 40px -12px oklch(0.28 0.09 235 / 0.25);
+  --shadow-lift: 0 20px 60px -20px oklch(0.28 0.09 235 / 0.35);
+}
+
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+h1, h2, h3, h4 {
+  font-family: "Fraunces", ui-serif, Georgia, serif;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+.text-balance { text-wrap: balance; }
+.container-x { margin-inline: auto; width: 100%; max-width: 80rem; padding-inline: 1.5rem; }
+@media (min-width: 1024px) { .container-x { padding-inline: 2.5rem; } }
+
+/* lucide icons default to block/inline-block sizing via width/height utility classes */
+[data-lucide] { display: inline-block; }
+
+/* ==========================================================================
+   Navigation — bascule clair/sombre + apparition au scroll
+   ========================================================================== */
+
+.site-header {
+  --nav-fg: var(--foreground);
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 50;
+  padding-block: 1.25rem;
+  background: transparent;
+  transition: background-color 0.5s, border-color 0.5s, padding 0.5s, backdrop-filter 0.5s;
+}
+.site-header.is-ondark { --nav-fg: #fff; }
+.site-header.is-scrolled {
+  background: color-mix(in oklab, var(--background) 85%, transparent);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent);
+  padding-block: 0.75rem;
+}
+
+.nav-brand { color: var(--nav-fg); }
+.nav-link {
+  position: relative;
+  color: color-mix(in oklab, var(--nav-fg) 75%, transparent);
+  transition: color 0.2s;
+}
+.nav-link:hover, .nav-link.is-active { color: var(--nav-fg); }
+.nav-link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 1rem; right: 1rem; bottom: -2px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.nav-cta-secondary { color: color-mix(in oklab, var(--nav-fg) 85%, transparent); }
+.nav-cta-secondary:hover { color: var(--nav-fg); }
+.nav-toggle { color: var(--nav-fg); }
+
+.mobile-menu { display: none; }
+.mobile-menu.is-open { display: block; }
