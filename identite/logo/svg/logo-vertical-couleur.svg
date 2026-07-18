@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1160"><defs><clipPath id="coupeGlobe"><circle cx="256" cy="248" r="136"/></clipPath></defs>
+  <g transform="translate(244,10)">
+  <g>
+    <!-- trajectoire orbitale bleue (haut-gauche) -->
+    <path d="M 96 340 A 182 182 0 1 1 372 100" fill="none" stroke="#084F86" stroke-width="26" stroke-linecap="round"/>
+    <!-- trajectoire orange (bas-droite) -->
+    <path d="M 152 408 A 182 182 0 0 0 434 282" fill="none" stroke="#F59E0B" stroke-width="26" stroke-linecap="round"/>
+    <!-- globe -->
+    <circle cx="256" cy="248" r="136" fill="#0A6EBD"/>
+    <!-- continents stylisés -->
+    <g fill="#FFFFFF" opacity="0.92">
+      <path d="M186 160 q34 -18 64 -6 q26 10 50 2 q20 -6 34 6 q-10 26 -38 30 q-24 4 -46 -4 q-30 -10 -52 4 q-16 -16 -12 -32 Z"/>
+      <path d="M170 232 q24 -10 44 2 q16 10 36 6 q22 -4 34 10 q-6 24 -30 30 q-26 6 -48 -6 q-24 -12 -40 -22 q-2 -12 4 -20 Z"/>
+      <path d="M290 300 q22 -8 40 2 q14 8 26 4 q-4 22 -24 28 q-22 6 -42 -8 q-6 -16 0 -26 Z"/>
+    </g>
+    <!-- mer : vagues dans le bas du globe -->
+    <g clip-path="url(#coupeGlobe)">
+      <path d="M120 344 q28 -16 56 0 t56 0 t56 0 t56 0 t56 0 v60 h-336 Z" fill="#FFFFFF" opacity="0.55"/>
+      <path d="M120 362 q28 -14 56 0 t56 0 t56 0 t56 0 t56 0 v40 h-336 Z" fill="#FFFFFF" opacity="0.85"/>
+    </g>
+    <!-- avion au bout de la trajectoire -->
+    <g transform="translate(376,96) rotate(48) scale(7.2)">
+      <path fill="#084F86" d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849Z" transform="translate(-8,-8)"/>
+    </g>
+    <!-- pin de localisation -->
+    <g transform="translate(148,352) scale(1.05)">
+      <path d="M0 -42 C24 -42 40 -26 40 -4 C40 20 14 38 0 58 C-14 38 -40 20 -40 -4 C-40 -26 -24 -42 0 -42 Z" fill="#F59E0B"/>
+      <circle cx="0" cy="-4" r="15" fill="#FFFFFF"/>
+    </g>
+  </g></g>
+  <text x="500" y="720" text-anchor="middle" font-family="Poppins, 'Segoe UI', Arial, sans-serif" font-weight="700" font-size="112" letter-spacing="-2">
+    <tspan fill="#084F86">Evasion</tspan><tspan fill="#F59E0B">Voyage</tspan>
+  </text>
+  <line x1="180" y1="778" x2="820" y2="778" stroke="#084F86" stroke-width="3" opacity="0.5"/>
+  <circle cx="500" cy="778" r="7" fill="#F59E0B"/>
+  <text x="500" y="850" text-anchor="middle" font-family="Inter, 'Open Sans', 'Segoe UI', Arial, sans-serif" font-weight="600" font-size="36" letter-spacing="9" fill="#374151">LE MONDE EST À PORTÉE DE CLIC</text>
+</svg>

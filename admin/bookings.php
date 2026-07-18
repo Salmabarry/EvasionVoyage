@@ -10,9 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
     $id = (int) ($_POST['id'] ?? 0);
     $status = $_POST['status'] ?? '';
-    if (in_array($status, ['en_attente', 'confirmee', 'annulee'], true)) {
+    if (in_array($status, ['en_attente', 'confirmee', 'refusee', 'annulee'], true)) {
       $stmt = db()->prepare('UPDATE bookings SET status = ? WHERE id = ?');
       $stmt->execute([$status, $id]);
+      // Refus ou annulation d'une réservation payée : remboursement + restitution des places de l'offre
+      if (in_array($status, ['refusee', 'annulee'], true)) {
+        db()->prepare("UPDATE payments SET status = 'rembourse' WHERE booking_id = ? AND status = 'paye'")->execute([$id]);
+        db()->prepare('UPDATE offers o JOIN bookings b ON b.offer_id = o.id SET o.seats = o.seats + b.travelers WHERE b.id = ?')->execute([$id]);
+      }
     }
     header('Location: bookings.php');
     exit;
@@ -20,16 +25,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $bookings = db()->query(
-  'SELECT b.id, b.travelers, b.status, b.created_at, u.first_name, u.last_name, u.email, d.name AS destination_name, d.price
+  'SELECT b.id, b.travelers, b.status, b.created_at, b.date_depart, b.date_retour, b.amount,
+          u.first_name, u.last_name, u.email, d.name AS destination_name, d.price, o.title AS offer_title,
+          p.reference AS pay_reference, p.status AS pay_status
    FROM bookings b
    JOIN users u ON u.id = b.user_id
    JOIN destinations d ON d.id = b.destination_id
+   LEFT JOIN offers o ON o.id = b.offer_id
+   LEFT JOIN payments p ON p.booking_id = b.id
    ORDER BY b.created_at DESC'
 )->fetchAll();
 
 $statusMeta = [
   'en_attente' => ['label' => 'En attente', 'class' => 'status-pending'],
   'confirmee' => ['label' => 'Confirmée', 'class' => 'status-success'],
+  'refusee' => ['label' => 'Refusée', 'class' => 'status-danger'],
   'annulee' => ['label' => 'Annulée', 'class' => 'status-danger'],
 ];
 
@@ -71,9 +81,22 @@ require __DIR__ . '/includes/layout-top.php';
                 <div class="font-medium"><?= htmlspecialchars($b['first_name'] . ' ' . $b['last_name']) ?></div>
                 <div class="text-xs text-muted-foreground"><?= htmlspecialchars($b['email']) ?></div>
               </td>
-              <td><?= htmlspecialchars($b['destination_name']) ?></td>
+              <td>
+                <?= htmlspecialchars($b['destination_name']) ?>
+                <?php if ($b['offer_title']): ?><div class="text-xs text-muted-foreground"><?= htmlspecialchars($b['offer_title']) ?></div><?php endif; ?>
+                <?php if ($b['date_depart']): ?>
+                  <div class="text-xs text-muted-foreground"><?= date('d/m/y', strtotime($b['date_depart'])) ?> → <?= date('d/m/y', strtotime($b['date_retour'])) ?></div>
+                <?php endif; ?>
+              </td>
               <td><?= (int) $b['travelers'] ?></td>
-              <td class="font-medium"><?= format_fcfa($b['price'] * $b['travelers']) ?></td>
+              <td class="font-medium">
+                <?= format_fcfa($b['amount'] !== null ? $b['amount'] : $b['price'] * $b['travelers']) ?>
+                <?php if ($b['pay_reference']): ?>
+                  <div class="text-xs <?= $b['pay_status'] === 'rembourse' ? 'text-muted-foreground' : 'text-primary' ?>">
+                    <?= $b['pay_status'] === 'rembourse' ? 'Remboursé' : 'Payé' ?> · <?= htmlspecialchars($b['pay_reference']) ?>
+                  </div>
+                <?php endif; ?>
+              </td>
               <td class="text-muted-foreground"><?= date('d/m/Y', strtotime($b['created_at'])) ?></td>
               <td><span class="status-pill <?= $statusMeta[$b['status']]['class'] ?>"><?= $statusMeta[$b['status']]['label'] ?></span></td>
               <td>

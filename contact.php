@@ -107,7 +107,7 @@ function contact_input(string $name, string $label, string $placeholder, string 
           contact_input('first_name', 'Prénom', 'Camille', $old['first_name']);
           contact_input('last_name', 'Nom', 'Lefèvre', $old['last_name']);
           contact_input('email', 'Email', 'camille@exemple.fr', $old['email'], 'email');
-          contact_input('phone', 'Téléphone', '+33 6 00 00 00 00', $old['phone'], 'tel');
+          contact_input('phone', 'Téléphone', '+221 77 000 00 00', $old['phone'], 'tel');
           contact_input('destination', 'Destination rêvée', 'Ex : Japon, Islande…', $old['destination']);
           contact_input('budget', 'Budget indicatif', 'Ex : 2 000 000 FCFA / pers.', $old['budget']);
           ?>
@@ -131,8 +131,8 @@ function contact_input(string $name, string $label, string $placeholder, string 
   <aside class="space-y-4">
     <?php
     $cards = [
-      ['i' => 'map-pin', 't' => 'Bureau', 'd' => "12 rue des Voyages\n75008 Paris"],
-      ['i' => 'phone', 't' => 'Téléphone', 'd' => "+33 1 89 00 00 00\nLun–Sam · 9h–19h"],
+      ['i' => 'map-pin', 't' => 'Bureau', 'd' => "Dakar\nSénégal"],
+      ['i' => 'phone', 't' => 'Téléphone / WhatsApp', 'd' => "+221 77 145 49 28\nLun–Sam · 9h–19h"],
       ['i' => 'mail', 't' => 'Email', 'd' => "hello@evasionvoyage.travel\nRéponse sous 24h"],
       ['i' => 'clock', 't' => 'Assistance voyage', 'd' => "24h/24 · 7j/7\ndepuis n'importe où"],
     ];

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1080px; height: 1080px; display: flex; flex-direction: column; font-family: Inter, sans-serif; background: #fff; }
+  header { display: flex; align-items: center; gap: 20px; padding: 34px 48px; }
+  header img { height: 86px; }
+  header .nom { font-family: Poppins, sans-serif; font-weight: 700; font-size: 44px; color: #084F86; }
+  header .nom span { color: #F59E0B; }
+  .visuel { flex: 1; margin: 0 48px; border-radius: 28px; position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #0A6EBD 0%, #1587DB 50%, #F59E0B 130%);
+            display: flex; align-items: flex-end; }
+  .visuel .etiquette { position: absolute; top: 34px; left: 34px; background: #F59E0B; color: #fff;
+            font-weight: 600; font-size: 30px; padding: 12px 28px; border-radius: 999px; letter-spacing: 2px; }
+  .visuel .zone { color: rgba(255,255,255,.75); font-size: 34px; width: 100%; text-align: center; padding: 40px;
+            border: 3px dashed rgba(255,255,255,.5); margin: 34px; border-radius: 20px; }
+  .titre { padding: 40px 48px 10px; font-family: Poppins, sans-serif; font-weight: 700; font-size: 58px; color: #084F86; line-height: 1.15; }
+  .titre span { color: #F59E0B; }
+  footer { display: flex; justify-content: space-between; align-items: center; padding: 26px 48px 40px; color: #374151; font-size: 30px; }
+  footer strong { color: #0A6EBD; }
+</style></head>
+<body>
+  <header>
+    <img src="../../logo/svg/icone-couleur.svg">
+    <div class="nom">Evasion<span>Voyage</span></div>
+  </header>
+  <div class="visuel">
+    <div class="etiquette">DESTINATION DU MOIS</div>
+    <div class="zone">[ Photo de la destination ici ]</div>
+  </div>
+  <div class="titre">Titre de l'offre — <span>prix en FCFA</span></div>
+  <footer>
+    <div>📍 Dakar, Sénégal</div>
+    <div><strong>evasionvoyage.com</strong></div>
+  </footer>
+</body></html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Inter, sans-serif; color: #374151; }
+  .page { width: 210mm; height: 296mm; page-break-after: always; padding: 16mm 18mm; position: relative; }
+  h1 { font-family: Poppins, sans-serif; font-weight: 800; color: #084F86; font-size: 10mm; margin-bottom: 2mm; }
+  h1 span { color: #F59E0B; }
+  .sous { color: #64748b; margin-bottom: 8mm; }
+  h2 { font-family: Poppins, sans-serif; font-weight: 700; color: #084F86; font-size: 6mm; margin: 7mm 0 3mm;
+       border-left: 1.6mm solid #F59E0B; padding-left: 3mm; }
+  p, li, td { font-size: 3.7mm; line-height: 1.7; }
+  table { width: 100%; border-collapse: collapse; }
+  th { background: #084F86; color: #fff; padding: 2.4mm; text-align: left; font-size: 3.4mm; }
+  td { padding: 2.2mm 2.4mm; border-bottom: 0.3mm solid #e2e8f0; }
+  code { background: #eef2f7; border-radius: 1mm; padding: 0.4mm 1.6mm; font-size: 3.2mm; color: #084F86; }
+  .pied { position: absolute; bottom: 8mm; left: 18mm; right: 18mm; font-size: 3mm; color: #94a3b8;
+          border-top: 0.4mm solid #e2e8f0; padding-top: 2.5mm; display: flex; justify-content: space-between; }
+</style></head>
+<body>
+<div class="page">
+  <h1>Evasion<span>Voyage</span> — Guide d'utilisation de la marque</h1>
+  <div class="sous">Comment utiliser correctement les fichiers de l'identité visuelle — v1.0, juillet 2026</div>
+
+  <h2>1. Les fichiers livrés</h2>
+  <table>
+    <tr><th>Dossier</th><th>Contenu</th></tr>
+    <tr><td><code>identite/logo/svg</code></td><td>12 logos vectoriels : 3 dispositions (icône, horizontal, vertical) × 4 versions (couleur, monochrome, noire, blanche)</td></tr>
+    <tr><td><code>identite/logo/png</code></td><td>Les mêmes en PNG haute définition, fond transparent</td></tr>
+    <tr><td><code>identite/reseaux-sociaux</code></td><td>Photo de profil, bannières Facebook / LinkedIn / X / YouTube, template de post (+ sources HTML modifiables)</td></tr>
+    <tr><td><code>identite/print</code></td><td>Carte de visite, papier à en-tête, affiche (PDF prêts à imprimer) + signature e-mail HTML</td></tr>
+    <tr><td><code>identite/charte</code></td><td>La charte graphique complète (PDF) — le document de référence</td></tr>
+    <tr><td><code>assets/img</code> (site)</td><td>Favicon .ico / .png et icône d'application déjà en place</td></tr>
+  </table>
+
+  <h2>2. Quelle version choisir ?</h2>
+  <table>
+    <tr><th>Situation</th><th>Fichier à utiliser</th></tr>
+    <tr><td>Fond blanc ou très clair (site, documents)</td><td><code>logo-horizontal-couleur</code></td></tr>
+    <tr><td>Fond bleu, photo, fond foncé</td><td><code>logo-horizontal-blanc</code> (ou vertical)</td></tr>
+    <tr><td>Espace étroit ou carré (avatar, appli, tampon)</td><td><code>icone-*</code> selon le fond</td></tr>
+    <tr><td>Impression noir &amp; blanc</td><td><code>logo-horizontal-noir</code></td></tr>
+    <tr><td>Document administratif sobre</td><td><code>logo-horizontal-monochrome</code></td></tr>
+  </table>
+  <p style="margin-top:2mm">Format : <b>SVG</b> partout où c'est possible (net à toutes les tailles) ; <b>PNG</b> quand le SVG n'est pas accepté (réseaux sociaux, Word...).</p>
+
+  <h2>3. Les 5 règles d'or</h2>
+  <p>1. Ne jamais <b>déformer</b>, incliner ou recolorer le logo. &nbsp;2. Respecter la <b>zone de protection</b> (hauteur du globe).
+  &nbsp;3. L'<b>orange</b> n'écrit jamais de texte courant sur fond blanc (accents et boutons seulement).
+  &nbsp;4. Titres en <b>Poppins</b>, texte en <b>Inter/Open Sans</b> — pas d'autres polices.
+  &nbsp;5. En dessous de 32 px, utiliser le <b>favicon simplifié</b>, pas l'icône complète.</p>
+
+  <h2>4. Couleurs à copier-coller</h2>
+  <p>Bleu <code>#0A6EBD</code> · Bleu foncé <code>#084F86</code> · Orange <code>#F59E0B</code> · Gris texte <code>#374151</code> · Blanc <code>#FFFFFF</code></p>
+
+  <h2>5. Modifier un support</h2>
+  <p>Les sources des bannières, du post et des documents print sont des fichiers <b>HTML</b> dans les sous-dossiers <code>src/</code> :
+     ouvrez-les dans un éditeur, changez le texte, puis ré-exportez (capture ou impression PDF depuis le navigateur).
+     Le logo source est le SVG — modifiable dans Inkscape, Figma ou tout éditeur vectoriel.</p>
+
+  <div class="pied"><span>Guide d'utilisation de la marque EvasionVoyage — v1.0</span><span>contact@evasionvoyage.com</span></div>
+</div>
+</body></html>

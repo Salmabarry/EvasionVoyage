@@ -6,6 +6,14 @@
 require_once __DIR__ . '/auth.php';
 $authUser = current_user();
 
+// Comptage des visiteurs : une visite par session (statistiques admin)
+if (empty($_SESSION['visite_comptee'])) {
+  $_SESSION['visite_comptee'] = true;
+  try {
+    db()->exec("INSERT INTO visits (day, counter) VALUES (CURDATE(), 1) ON DUPLICATE KEY UPDATE counter = counter + 1");
+  } catch (Throwable $e) { /* la statistique ne doit jamais bloquer le site */ }
+}
+
 $pageTitle = $pageTitle ?? 'EvasionVoyage — Voyages sur mesure & réservation en ligne';
 $pageDescription = $pageDescription ?? "EvasionVoyage conçoit des voyages sur mesure vers les plus belles destinations. Réservez séjours, vols et expériences en toute sécurité.";
 $transparentNav = $transparentNav ?? false;
@@ -88,7 +96,7 @@ $isHome = $activePage === 'index.php';
 <header class="site-header<?= $isHome ? ' is-ondark' : '' ?>" id="site-header">
   <div class="container-x flex items-center justify-between">
     <a href="index.php" class="nav-brand flex items-center gap-2 font-display text-xl tracking-tight">
-      <img src="assets/img/logo-icon.png" alt="EvasionVoyage" class="h-9 w-9 object-contain">
+      <img src="assets/img/icone-couleur.svg" alt="EvasionVoyage" class="h-9 w-9 object-contain">
       <span>EvasionVoyage</span>
     </a>
 
@@ -107,13 +115,27 @@ $isHome = $activePage === 'index.php';
             <i data-lucide="shield" class="mr-1 inline h-4 w-4 align-[-2px]"></i>Admin
           </a>
         <?php else: ?>
-          <a href="mes-reservations.php" class="nav-cta-secondary text-sm font-medium">
-            <i data-lucide="user-round" class="mr-1 inline h-4 w-4 align-[-2px]"></i><?= htmlspecialchars($authUser['first_name']) ?>
-          </a>
+          <!-- Menu compte : toutes les pages de l'espace voyageur -->
+          <div class="relative">
+            <button type="button" id="menu-compte-btn" class="nav-cta-secondary flex items-center gap-1 text-sm font-medium">
+              <i data-lucide="user-round" class="h-4 w-4"></i><?= htmlspecialchars($authUser['first_name']) ?>
+              <i data-lucide="chevron-down" class="h-3.5 w-3.5"></i>
+            </button>
+            <div id="menu-compte-panel" class="absolute right-0 z-50 mt-2 hidden w-60 rounded-2xl border border-border bg-background p-2 shadow-[var(--shadow-lift)]">
+              <a href="tableau-de-bord.php" class="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted"><i data-lucide="layout-dashboard" class="h-4 w-4 text-primary"></i> Tableau de bord</a>
+              <a href="mes-reservations.php" class="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted"><i data-lucide="ticket" class="h-4 w-4 text-primary"></i> Mes réservations</a>
+              <a href="historique.php" class="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted"><i data-lucide="history" class="h-4 w-4 text-primary"></i> Historique des voyages</a>
+              <a href="profil.php" class="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted"><i data-lucide="user-round-cog" class="h-4 w-4 text-primary"></i> Mon profil</a>
+              <div class="my-1 border-t border-border"></div>
+              <a href="logout.php" class="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-destructive hover:bg-destructive/10"><i data-lucide="log-out" class="h-4 w-4"></i> Déconnexion</a>
+            </div>
+          </div>
         <?php endif; ?>
+        <?php if (!empty($authUser['is_admin'])): ?>
         <a href="logout.php" class="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-[var(--shadow-soft)] transition hover:translate-y-[-1px]">
           Déconnexion
         </a>
+        <?php endif; ?>
       <?php else: ?>
         <a href="connexion.php" class="nav-cta-secondary text-sm font-medium">Connexion</a>
         <a href="inscription.php" class="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-accent-foreground shadow-[var(--shadow-soft)] transition hover:translate-y-[-1px]">
@@ -133,10 +155,18 @@ $isHome = $activePage === 'index.php';
     <?php endforeach; ?>
     <div class="mt-2 flex gap-2 border-t border-border pt-3">
       <?php if ($authUser): ?>
-        <a href="<?= !empty($authUser['is_admin']) ? 'admin/index.php' : 'mes-reservations.php' ?>" class="flex-1 rounded-xl border border-border px-4 py-2 text-center text-sm font-medium text-foreground">
-          <?= !empty($authUser['is_admin']) ? 'Admin' : htmlspecialchars($authUser['first_name']) ?>
-        </a>
-        <a href="logout.php" class="flex-1 rounded-xl bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-foreground">Déconnexion</a>
+        <?php if (!empty($authUser['is_admin'])): ?>
+          <a href="admin/index.php" class="flex-1 rounded-xl border border-border px-4 py-2 text-center text-sm font-medium text-foreground">Admin</a>
+          <a href="logout.php" class="flex-1 rounded-xl bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-foreground">Déconnexion</a>
+        <?php else: ?>
+          <div class="w-full space-y-1">
+            <a href="tableau-de-bord.php" class="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted">Tableau de bord</a>
+            <a href="mes-reservations.php" class="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted">Mes réservations</a>
+            <a href="historique.php" class="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted">Historique des voyages</a>
+            <a href="profil.php" class="block rounded-xl px-4 py-2.5 text-sm font-medium text-foreground hover:bg-muted">Mon profil</a>
+            <a href="logout.php" class="block rounded-xl bg-accent px-4 py-2.5 text-center text-sm font-semibold text-accent-foreground">Déconnexion</a>
+          </div>
+        <?php endif; ?>
       <?php else: ?>
         <a href="connexion.php" class="flex-1 rounded-xl border border-border px-4 py-2 text-center text-sm font-medium text-foreground">Connexion</a>
         <a href="inscription.php" class="flex-1 rounded-xl bg-accent px-4 py-2 text-center text-sm font-semibold text-accent-foreground">Réserver</a>

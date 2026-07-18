@@ -7,13 +7,11 @@ $totalBookings = (int) db()->query("SELECT COUNT(*) FROM bookings")->fetchColumn
 $totalDestinations = (int) db()->query("SELECT COUNT(*) FROM destinations")->fetchColumn();
 $unreadMessagesCount = (int) db()->query("SELECT COUNT(*) FROM contact_messages WHERE status = 'nouveau'")->fetchColumn();
 
-$revenue = (float) db()->query(
-  "SELECT COALESCE(SUM(d.price * b.travelers), 0)
-   FROM bookings b JOIN destinations d ON d.id = b.destination_id
-   WHERE b.status = 'confirmee'"
-)->fetchColumn();
+// Chiffre d'affaires réel : somme des paiements encaissés (hors remboursés)
+$revenue = (float) db()->query("SELECT COALESCE(SUM(amount), 0) FROM payments WHERE status = 'paye'")->fetchColumn();
+$totalVisitors = (int) db()->query('SELECT COALESCE(SUM(counter), 0) FROM visits')->fetchColumn();
 
-$statusCounts = ['en_attente' => 0, 'confirmee' => 0, 'annulee' => 0];
+$statusCounts = ['en_attente' => 0, 'confirmee' => 0, 'refusee' => 0, 'annulee' => 0];
 foreach (db()->query("SELECT status, COUNT(*) c FROM bookings GROUP BY status") as $row) {
   $statusCounts[$row['status']] = (int) $row['c'];
 }
@@ -44,9 +42,25 @@ $recentBookings = db()->query(
 
 $recentMessages = db()->query("SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT 5")->fetchAll();
 
+// Destinations les plus réservées (avec leur chiffre d'affaires encaissé)
+$topDestinations = db()->query(
+  "SELECT d.name, d.country, COUNT(b.id) AS nb,
+          COALESCE(SUM(CASE WHEN p.status = 'paye' THEN p.amount END), 0) AS ca
+   FROM bookings b
+   JOIN destinations d ON d.id = b.destination_id
+   LEFT JOIN payments p ON p.booking_id = b.id
+   GROUP BY d.id ORDER BY nb DESC LIMIT 5"
+)->fetchAll();
+
+// Visites des 14 derniers jours
+$visitsRaw = array_reverse(db()->query('SELECT day, counter FROM visits ORDER BY day DESC LIMIT 14')->fetchAll());
+$visitLabels = array_map(fn($v) => date('d/m', strtotime($v['day'])), $visitsRaw);
+$visitData = array_map(fn($v) => (int) $v['counter'], $visitsRaw);
+
 $statusMeta = [
   'en_attente' => ['label' => 'En attente', 'class' => 'status-pending'],
   'confirmee' => ['label' => 'Confirmée', 'class' => 'status-success'],
+  'refusee' => ['label' => 'Refusée', 'class' => 'status-danger'],
   'annulee' => ['label' => 'Annulée', 'class' => 'status-danger'],
 ];
 $messageStatusMeta = [
@@ -61,7 +75,16 @@ $pageSubtitle = 'Bonjour ' . $admin['first_name'] . ', voici l\'activité de la 
 require __DIR__ . '/includes/layout-top.php';
 ?>
 
-<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+  <div class="admin-card kpi-card">
+    <div>
+      <div class="text-xs uppercase tracking-widest text-muted-foreground">Visiteurs</div>
+      <div class="mt-2 font-display text-3xl"><?= number_format($totalVisitors, 0, ',', ' ') ?></div>
+      <div class="mt-2 kpi-trend kpi-trend--flat"><i data-lucide="eye" class="h-3.5 w-3.5"></i> visites du site</div>
+    </div>
+    <span class="kpi-icon kpi-icon--info"><i data-lucide="eye" class="h-5 w-5"></i></span>
+  </div>
+
   <div class="admin-card kpi-card">
     <div>
       <div class="text-xs uppercase tracking-widest text-muted-foreground">Utilisateurs</div>
@@ -114,6 +137,34 @@ require __DIR__ . '/includes/layout-top.php';
     <div class="mt-4 h-64">
       <canvas id="chart-status"></canvas>
     </div>
+  </div>
+</div>
+
+<div class="mt-6 grid gap-5 lg:grid-cols-3">
+  <div class="admin-card p-6 lg:col-span-2">
+    <h2 class="font-display text-xl">Visites du site — 14 derniers jours</h2>
+    <div class="mt-4 h-56">
+      <canvas id="chart-visits"></canvas>
+    </div>
+  </div>
+
+  <div class="admin-card p-6">
+    <h2 class="font-display text-xl">Destinations les plus réservées</h2>
+    <?php if ($topDestinations): ?>
+      <ul class="mt-4 space-y-3">
+        <?php foreach ($topDestinations as $i => $d): ?>
+          <li class="flex items-center gap-3">
+            <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-muted text-xs font-bold"><?= $i + 1 ?></span>
+            <div class="min-w-0 flex-1">
+              <div class="truncate text-sm font-semibold"><?= htmlspecialchars($d['name']) ?> <span class="font-normal text-muted-foreground">(<?= htmlspecialchars($d['country']) ?>)</span></div>
+              <div class="text-xs text-muted-foreground"><?= (int) $d['nb'] ?> réservation(s) · <?= format_fcfa($d['ca']) ?></div>
+            </div>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    <?php else: ?>
+      <div class="empty-state"><i data-lucide="map-pinned" class="h-8 w-8"></i><p>Aucune réservation pour le moment.</p></div>
+    <?php endif; ?>
   </div>
 </div>
 
@@ -208,13 +259,37 @@ require __DIR__ . '/includes/layout-top.php';
       }
     });
 
+    new Chart(document.getElementById('chart-visits'), {
+      type: 'line',
+      data: {
+        labels: <?= json_encode($visitLabels) ?>,
+        datasets: [{
+          label: 'Visites',
+          data: <?= json_encode($visitData) ?>,
+          borderColor: 'oklch(0.55 0.12 240)',
+          backgroundColor: 'oklch(0.55 0.12 240 / 0.12)',
+          fill: true,
+          tension: 0.35,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: 'oklch(0.9 0.015 85)' } },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
     new Chart(document.getElementById('chart-status'), {
       type: 'doughnut',
       data: {
-        labels: ['En attente', 'Confirmée', 'Annulée'],
+        labels: ['En attente', 'Confirmée', 'Refusée', 'Annulée'],
         datasets: [{
-          data: [<?= $statusCounts['en_attente'] ?>, <?= $statusCounts['confirmee'] ?>, <?= $statusCounts['annulee'] ?>],
-          backgroundColor: ['oklch(0.85 0.13 80)', 'oklch(0.72 0.16 55)', 'oklch(0.6 0.22 27)'],
+          data: [<?= $statusCounts['en_attente'] ?>, <?= $statusCounts['confirmee'] ?>, <?= $statusCounts['refusee'] ?>, <?= $statusCounts['annulee'] ?>],
+          backgroundColor: ['oklch(0.85 0.13 80)', 'oklch(0.72 0.16 55)', 'oklch(0.5 0.19 27)', 'oklch(0.6 0.22 27)'],
           borderWidth: 0,
         }]
       },

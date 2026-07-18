@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Inter, sans-serif; color: #374151; }
+  .page { width: 210mm; height: 296mm; page-break-after: always; padding: 16mm 18mm; position: relative; overflow: hidden; }
+  h1 { font-family: Poppins, sans-serif; font-weight: 800; }
+  h2 { font-family: Poppins, sans-serif; font-weight: 700; color: #084F86; font-size: 8mm; margin-bottom: 6mm;
+       border-bottom: 1mm solid #F59E0B; padding-bottom: 2mm; }
+  h3 { font-family: Poppins, sans-serif; font-size: 4.6mm; color: #0A6EBD; margin: 5mm 0 2mm; }
+  p, li { font-size: 3.7mm; line-height: 1.7; }
+  .pied { position: absolute; bottom: 8mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between;
+          font-size: 3mm; color: #94a3b8; border-top: 0.4mm solid #e2e8f0; padding-top: 2.5mm; }
+  table { width: 100%; border-collapse: collapse; font-size: 3.4mm; }
+  th { background: #084F86; color: #fff; padding: 2.6mm; text-align: left; font-family: Poppins, sans-serif; font-weight: 600; }
+  td { padding: 2.4mm 2.6mm; border-bottom: 0.3mm solid #e2e8f0; }
+  .ok { color: #16a34a; font-weight: 600; } .non { color: #dc2626; font-weight: 600; }
+  .grille { display: grid; gap: 5mm; }
+  .c2 { grid-template-columns: 1fr 1fr; } .c4 { grid-template-columns: repeat(4, 1fr); }
+  .vignette { border: 0.4mm solid #e2e8f0; border-radius: 3mm; padding: 4mm; text-align: center; }
+  .vignette.sombre { background: #0F172A; }
+  .vignette img { max-width: 100%; max-height: 26mm; }
+  .vignette .legende { font-size: 2.9mm; color: #64748b; margin-top: 2mm; }
+  .vignette.sombre .legende { color: #94a3b8; }
+
+  /* Couverture */
+  .couverture { background: linear-gradient(155deg, #084F86, #0A6EBD 55%, #1587DB); color: #fff;
+                display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .couverture img { width: 66mm; }
+  .couverture h1 { font-size: 15mm; margin-top: 10mm; }
+  .couverture h1 span { color: #F59E0B; }
+  .couverture .sous { font-size: 6.5mm; letter-spacing: 2mm; margin-top: 3mm; color: rgba(255,255,255,.9); }
+  .couverture .doc { margin-top: 22mm; font-family: Poppins, sans-serif; font-size: 8.4mm; font-weight: 700;
+                     background: rgba(255,255,255,.14); padding: 4mm 14mm; border-radius: 99mm; }
+  .couverture .version { position: absolute; bottom: 12mm; font-size: 3.4mm; color: rgba(255,255,255,.75); }
+
+  .pastille { height: 30mm; border-radius: 3mm; display: flex; flex-direction: column; justify-content: flex-end;
+              padding: 3mm; color: #fff; font-size: 3mm; line-height: 1.5; }
+  .zoneprotect { display: flex; align-items: center; justify-content: center; padding: 8mm;
+                 background: repeating-linear-gradient(45deg, #f8fafc, #f8fafc 4mm, #eef2f7 4mm, #eef2f7 8mm);
+                 border: 0.5mm dashed #94a3b8; border-radius: 3mm; }
+  .zoneprotect img { max-height: 30mm; outline: 10mm solid rgba(10,110,189,.08); }
+  .interdit { position: relative; }
+  .interdit::after { content: "✕"; position: absolute; top: 1mm; right: 2.5mm; color: #dc2626; font-size: 6mm; font-weight: 700; }
+</style></head>
+<body>
+
+<!-- PAGE 1 : Couverture -->
+<div class="page couverture">
+  <img src="../../logo/svg/icone-blanc.svg">
+  <h1>Evasion<span>Voyage</span></h1>
+  <div class="sous">LE MONDE EST À PORTÉE DE CLIC</div>
+  <div class="doc">Charte graphique</div>
+  <div class="version">Version 1.0 — Juillet 2026 — Plateforme de réservation de voyages</div>
+</div>
+
+<!-- PAGE 2 : Concept créatif -->
+<div class="page">
+  <h2>1. Concept créatif</h2>
+  <p>L'identité EvasionVoyage traduit visuellement la promesse de la marque : <b>rendre le monde accessible en quelques clics</b>.
+     Le style retenu est <b>minimaliste, élégant, premium et international</b> — des formes simples, des couleurs franches,
+     beaucoup d'espace blanc et une lecture immédiate sur tous les supports.</p>
+  <h3>Les éléments du symbole</h3>
+  <ul style="margin-left:6mm">
+    <li><b>Le globe</b> — l'international, la destination : le cœur du métier ;</li>
+    <li><b>L'avion et sa trajectoire orbitale</b> — le voyage, le mouvement, l'évasion ;</li>
+    <li><b>Le repère de localisation</b> — la réservation précise, la plateforme en ligne ;</li>
+    <li><b>La mer (vagues)</b> — le dépaysement et la détente.</li>
+  </ul>
+  <p style="margin-top:3mm">Le duo <b>bleu / orange</b> associe la confiance et le professionnalisme (bleu) à la chaleur
+     et l'énergie du départ (orange, réservé aux accents et appels à l'action).</p>
+  <h3>Le logotype</h3>
+  <div class="grille c2" style="margin-top:3mm">
+    <div class="vignette"><img src="../../logo/svg/logo-horizontal-couleur.svg"><div class="legende">Version principale (horizontale)</div></div>
+    <div class="vignette"><img src="../../logo/svg/logo-vertical-couleur.svg" style="max-height:34mm"><div class="legende">Version verticale (empilée)</div></div>
+  </div>
+  <div class="pied"><span>Charte graphique EvasionVoyage — v1.0</span><span>2</span></div>
+</div>
+
+<!-- PAGE 3 : Versions du logo -->
+<div class="page">
+  <h2>2. Les versions du logo</h2>
+  <p>Huit déclinaisons officielles sont livrées (SVG vectoriel + PNG haute définition, fond transparent).</p>
+  <div class="grille c2" style="margin-top:5mm">
+    <div class="vignette"><img src="../../logo/svg/logo-horizontal-couleur.svg"><div class="legende">Couleur — usage par défaut sur fond clair</div></div>
+    <div class="vignette"><img src="../../logo/svg/logo-horizontal-monochrome.svg"><div class="legende">Monochrome bleu — documents sobres, tampons</div></div>
+    <div class="vignette"><img src="../../logo/svg/logo-horizontal-noir.svg"><div class="legende">Noire — impression noir &amp; blanc, fax, gravure</div></div>
+    <div class="vignette sombre"><img src="../../logo/svg/logo-horizontal-blanc.svg"><div class="legende">Blanche — fonds foncés, photos, fond bleu</div></div>
+  </div>
+  <h3 style="margin-top:6mm">Icône seule (avatar, favicon, application)</h3>
+  <div class="grille c4">
+    <div class="vignette"><img src="../../logo/svg/icone-couleur.svg"><div class="legende">Couleur</div></div>
+    <div class="vignette"><img src="../../logo/svg/icone-monochrome.svg"><div class="legende">Monochrome</div></div>
+    <div class="vignette"><img src="../../logo/svg/icone-noir.svg"><div class="legende">Noire</div></div>
+    <div class="vignette sombre"><img src="../../logo/svg/icone-blanc.svg"><div class="legende">Blanche</div></div>
+  </div>
+  <div class="pied"><span>Charte graphique EvasionVoyage — v1.0</span><span>3</span></div>
+</div>
+
+<!-- PAGE 4 : Règles d'usage -->
+<div class="page">
+  <h2>3. Règles d'usage du logo</h2>
+  <h3>Zone de protection</h3>
+  <p>Préserver autour du logo un espace libre au moins égal à la <b>hauteur du globe de l'icône</b> (zone bleutée ci-dessous).
+     Aucun texte ni élément graphique ne doit y entrer.</p>
+  <div class="zoneprotect"><img src="../../logo/svg/logo-horizontal-couleur.svg"></div>
+  <h3>Tailles minimales</h3>
+  <ul style="margin-left:6mm">
+    <li>Logo horizontal : <b>120 px</b> de large (écran) / <b>35 mm</b> (impression) ;</li>
+    <li>Icône seule : <b>32 px</b> — en dessous (favicon 16 px), utiliser le favicon simplifié dédié.</li>
+  </ul>
+  <h3>Interdits</h3>
+  <div class="grille c4" style="margin-top:2mm">
+    <div class="vignette interdit"><img src="../../logo/svg/logo-horizontal-couleur.svg" style="transform:scaleX(1.5)"><div class="legende">Ne pas déformer</div></div>
+    <div class="vignette interdit"><img src="../../logo/svg/logo-horizontal-couleur.svg" style="filter:hue-rotate(120deg)"><div class="legende">Ne pas changer les couleurs</div></div>
+    <div class="vignette interdit"><img src="../../logo/svg/logo-horizontal-couleur.svg" style="transform:rotate(-12deg)"><div class="legende">Ne pas incliner</div></div>
+    <div class="vignette interdit" style="background:#F59E0B"><img src="../../logo/svg/logo-horizontal-couleur.svg"><div class="legende" style="color:#7c2d12">Pas de fond insuffisamment contrasté</div></div>
+  </div>
+  <p style="margin-top:4mm">Ne pas ajouter d'ombre portée, de contour ni d'effet ; ne pas séparer l'avion du globe ;
+     ne pas recomposer le texte avec une autre police.</p>
+  <div class="pied"><span>Charte graphique EvasionVoyage — v1.0</span><span>4</span></div>
+</div>
+
+<!-- PAGE 5 : Palette -->
+<div class="page">
+  <h2>4. Palette de couleurs</h2>
+  <div class="grille c4" style="margin-top:4mm">
+    <div class="pastille" style="background:#0A6EBD">Bleu principal<br><b>#0A6EBD</b><br>RVB 10 · 110 · 189<br>CMJN 95 · 42 · 0 · 26</div>
+    <div class="pastille" style="background:#F59E0B">Orange accent<br><b>#F59E0B</b><br>RVB 245 · 158 · 11<br>CMJN 0 · 35 · 96 · 4</div>
+    <div class="pastille" style="background:#374151">Gris texte<br><b>#374151</b><br>RVB 55 · 65 · 81<br>CMJN 32 · 20 · 0 · 68</div>
+    <div class="pastille" style="background:#fff;color:#374151;border:0.4mm solid #e2e8f0">Blanc<br><b>#FFFFFF</b><br>RVB 255 · 255 · 255<br>CMJN 0 · 0 · 0 · 0</div>
+  </div>
+  <h3 style="margin-top:6mm">Nuance complémentaire</h3>
+  <div class="grille c4">
+    <div class="pastille" style="background:#084F86">Bleu foncé<br><b>#084F86</b><br>Titres, pieds de page, « Evasion »</div>
+  </div>
+  <h3 style="margin-top:6mm">Répartition recommandée</h3>
+  <p>Bleu ≈ 30 % · Blanc ≈ 55 % · Orange ≈ 10 % (accents et boutons uniquement) · Gris ≈ 5 % (texte courant).</p>
+  <h3 style="margin-top:5mm">Accessibilité — audit de contraste (WCAG 2.1)</h3>
+  <table>
+    <tr><th>Combinaison</th><th>Ratio</th><th>Texte courant (≥ 4,5)</th><th>Grand titre (≥ 3,0)</th></tr>
+    <tr><td>Bleu #0A6EBD sur blanc</td><td>5,28 : 1</td><td class="ok">Conforme AA</td><td class="ok">Conforme</td></tr>
+    <tr><td>Gris #374151 sur blanc</td><td>10,31 : 1</td><td class="ok">Conforme AAA</td><td class="ok">Conforme</td></tr>
+    <tr><td>Blanc sur bleu #0A6EBD</td><td>5,28 : 1</td><td class="ok">Conforme AA</td><td class="ok">Conforme</td></tr>
+    <tr><td>Orange #F59E0B sur gris #374151</td><td>4,80 : 1</td><td class="ok">Conforme AA</td><td class="ok">Conforme</td></tr>
+    <tr><td>Orange #F59E0B sur bleu foncé #084F86</td><td>3,95 : 1</td><td class="non">Non conforme</td><td class="ok">Conforme</td></tr>
+    <tr><td>Orange #F59E0B sur blanc</td><td>2,15 : 1</td><td class="non">Non conforme</td><td class="non">Non conforme</td></tr>
+  </table>
+  <p style="margin-top:3mm"><b>Règle qui en découle :</b> l'orange ne sert jamais à écrire du texte courant sur fond blanc.
+     Il est réservé aux éléments graphiques, aux boutons (texte blanc sur fond orange en grande taille) et aux mots-accents
+     de grande taille (« Voyage » du logotype).</p>
+  <div class="pied"><span>Charte graphique EvasionVoyage — v1.0</span><span>5</span></div>
+</div>
+
+<!-- PAGE 6 : Typographies -->
+<div class="page">
+  <h2>5. Typographies</h2>
+  <h3>Poppins — titres et identité</h3>
+  <p style="font-family:Poppins,sans-serif;font-size:9mm;font-weight:700;color:#084F86">Réservez l'évasion. <span style="color:#F59E0B">Partez loin.</span></p>
+  <p style="font-family:Poppins,sans-serif;font-size:4.6mm;color:#64748b">Poppins SemiBold / Bold / ExtraBold — AaBbCc 0123456789</p>
+  <h3 style="margin-top:6mm">Inter (ou Open Sans) — texte courant et interfaces</h3>
+  <p>Inter Regular pour les paragraphes, Inter Medium/SemiBold pour les libellés et boutons.
+     AaBbCcDdEeFfGg 0123456789 — lisible en petite taille sur écran comme en impression.</p>
+  <h3 style="margin-top:6mm">Hiérarchie type</h3>
+  <table>
+    <tr><th>Usage</th><th>Police</th><th>Graisse</th><th>Taille indicative (web)</th><th>Couleur</th></tr>
+    <tr><td>Titre principal (H1)</td><td>Poppins</td><td>700–800</td><td>36–48 px</td><td>#084F86</td></tr>
+    <tr><td>Sous-titre (H2/H3)</td><td>Poppins</td><td>600–700</td><td>22–28 px</td><td>#0A6EBD</td></tr>
+    <tr><td>Texte courant</td><td>Inter / Open Sans</td><td>400</td><td>15–16 px</td><td>#374151</td></tr>
+    <tr><td>Boutons / libellés</td><td>Inter</td><td>600</td><td>14–16 px</td><td>Blanc sur #0A6EBD ou #F59E0B</td></tr>
+    <tr><td>Devise / sur-titres</td><td>Inter</td><td>600, lettres espacées</td><td>12–14 px</td><td>#374151 ou blanc</td></tr>
+  </table>
+  <p style="margin-top:4mm">Polices gratuites (Google Fonts) : fonts.google.com/specimen/Poppins · fonts.google.com/specimen/Inter</p>
+  <div class="pied"><span>Charte graphique EvasionVoyage — v1.0</span><span>6</span></div>
+</div>
+
+<!-- PAGE 7 : Applications -->
+<div class="page">
+  <h2>6. Exemples d'application</h2>
+  <div class="grille c2">
+    <div class="vignette"><img src="../../reseaux-sociaux/banniere-linkedin-1584x396.png" style="max-height:22mm"><div class="legende">Bannière réseaux sociaux</div></div>
+    <div class="vignette"><img src="../../reseaux-sociaux/photo-profil-1024.png" style="max-height:24mm"><div class="legende">Photo de profil</div></div>
+    <div class="vignette"><img src="../../reseaux-sociaux/template-post-1080x1080.png" style="max-height:30mm"><div class="legende">Template de post</div></div>
+    <div class="vignette sombre"><img src="../../logo/svg/logo-vertical-blanc.svg" style="max-height:30mm"><div class="legende">Carte de visite (recto) / fonds foncés</div></div>
+  </div>
+  <p style="margin-top:5mm">Le site web reprend la même grammaire : en-tête bleu avec logo, boutons orange, cartes blanches,
+     texte gris — l'expérience est identique sur ordinateur, tablette et mobile (favicon et icône d'application fournis).</p>
+  <h3>Critères de qualité (rappel du cahier des charges)</h3>
+  <ul style="margin-left:6mm">
+    <li><b>Professionnel</b> — palette sobre, typographies soignées, règles d'usage strictes ;</li>
+    <li><b>Mémorable</b> — un symbole unique (globe + trajectoire + pin) et un duo de couleurs franc ;</li>
+    <li><b>Évolutif</b> — fichiers vectoriels, 8 déclinaisons, du favicon 16 px à l'affiche A4 ;</li>
+    <li><b>Cohérent</b> — chaque élément raconte le voyage et la réservation en ligne.</li>
+  </ul>
+  <div class="pied"><span>Charte graphique EvasionVoyage — v1.0</span><span>7</span></div>
+</div>
+
+</body></html>

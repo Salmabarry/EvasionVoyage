@@ -1,0 +1,38 @@
+[
+  {
+    "paire": "Bleu #0A6EBD sur Blanc #FFFFFF",
+    "ratio": 5.28,
+    "aaTexte": true,
+    "aaTitre": true
+  },
+  {
+    "paire": "Gris #374151 sur Blanc #FFFFFF",
+    "ratio": 10.31,
+    "aaTexte": true,
+    "aaTitre": true
+  },
+  {
+    "paire": "Orange #F59E0B sur Blanc #FFFFFF",
+    "ratio": 2.15,
+    "aaTexte": false,
+    "aaTitre": false
+  },
+  {
+    "paire": "Orange #F59E0B sur Gris #374151",
+    "ratio": 4.8,
+    "aaTexte": true,
+    "aaTitre": true
+  },
+  {
+    "paire": "Orange #F59E0B sur Bleu foncé #084F86",
+    "ratio": 3.95,
+    "aaTexte": false,
+    "aaTitre": true
+  },
+  {
+    "paire": "Blanc #FFFFFF sur Bleu #0A6EBD",
+    "ratio": 5.28,
+    "aaTexte": true,
+    "aaTitre": true
+  }
+]

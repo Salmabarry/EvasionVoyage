@@ -163,15 +163,29 @@ $featured = array_slice($destinations, 0, 6);
   <h2 class="mt-3 max-w-3xl font-display text-4xl md:text-6xl">Ils sont revenus transformés.</h2>
   <div class="mt-14 grid gap-6 md:grid-cols-3">
     <?php
-    $testimonials = [
-      ['n' => 'Claire M.', 'd' => 'Kyoto, 10 jours', 'q' => "Un itinéraire pensé au millimètre. On a vécu le Japon comme des habitants, pas comme des touristes."],
-      ['n' => 'Sofiane B.', 'd' => 'Islande, 7 jours', 'q' => "Le lodge sous les aurores, seuls au monde. Une nuit que je raconterai toute ma vie."],
-      ['n' => 'Léa & Tom', 'd' => 'Maldives, 8 jours', 'q' => "Notre voyage de noces. EvasionVoyage a orchestré chaque détail avec une délicatesse rare."],
-    ];
+    // Avis réels approuvés par l'admin ; à défaut, témoignages de présentation
+    $avisAccueil = db()->query(
+      "SELECT r.rating, r.comment, u.first_name, d.name AS dest
+       FROM reviews r JOIN users u ON u.id = r.user_id JOIN destinations d ON d.id = r.destination_id
+       WHERE r.status = 'approuve' AND r.comment IS NOT NULL
+       ORDER BY r.created_at DESC LIMIT 3"
+    )->fetchAll();
+
+    $testimonials = [];
+    foreach ($avisAccueil as $a) {
+      $testimonials[] = ['n' => htmlspecialchars($a['first_name']), 'd' => htmlspecialchars($a['dest']), 'q' => htmlspecialchars($a['comment']), 'r' => (int) $a['rating']];
+    }
+    if (!$testimonials) {
+      $testimonials = [
+        ['n' => 'Claire M.', 'd' => 'Kyoto, 10 jours', 'q' => "Un itinéraire pensé au millimètre. On a vécu le Japon comme des habitants, pas comme des touristes.", 'r' => 5],
+        ['n' => 'Sofiane B.', 'd' => 'Islande, 7 jours', 'q' => "Le lodge sous les aurores, seuls au monde. Une nuit que je raconterai toute ma vie.", 'r' => 5],
+        ['n' => 'Léa & Tom', 'd' => 'Maldives, 8 jours', 'q' => "Notre voyage de noces. EvasionVoyage a orchestré chaque détail avec une délicatesse rare.", 'r' => 5],
+      ];
+    }
     foreach ($testimonials as $t): ?>
       <figure class="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]">
         <div class="flex gap-0.5 text-accent">
-          <?php for ($i = 0; $i < 5; $i++): ?>
+          <?php for ($i = 0; $i < $t['r']; $i++): ?>
             <i data-lucide="star" class="h-4 w-4 fill-current"></i>
           <?php endfor; ?>
         </div>

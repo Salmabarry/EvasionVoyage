@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Planche de tests — Identité EvasionVoyage</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body { font-family: Inter, sans-serif; margin: 0; padding: 24px; background: #f1f5f9; }
+  h1 { font-family: Poppins, sans-serif; color: #084F86; font-size: 22px; }
+  h2 { font-family: Poppins, sans-serif; font-size: 15px; color: #374151; margin: 18px 0 8px; }
+  .grille { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .case { border-radius: 10px; padding: 14px; display: flex; align-items: center; justify-content: center; min-height: 110px; }
+  .clair { background: #fff; border: 1px solid #e2e8f0; }
+  .fonce { background: #0F172A; }
+  .bleu  { background: #0A6EBD; }
+  .photo { background: linear-gradient(135deg, #0A6EBD, #F59E0B); }
+  img { max-width: 100%; max-height: 100px; }
+  .petites { display: flex; gap: 18px; align-items: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; }
+  .petites div { text-align: center; font-size: 10px; color: #64748b; }
+</style>
+</head>
+<body>
+<h1>Planche de tests — Identité visuelle EvasionVoyage</h1>
+
+<h2>1. Fond clair (versions couleur, monochrome, noire) et fond foncé / bleu (version blanche)</h2>
+<div class="grille">
+  <div class="case clair"><img src="../logo/svg/logo-horizontal-couleur.svg"></div>
+  <div class="case clair"><img src="../logo/svg/logo-horizontal-monochrome.svg"></div>
+  <div class="case clair"><img src="../logo/svg/logo-horizontal-noir.svg"></div>
+  <div class="case fonce"><img src="../logo/svg/logo-horizontal-blanc.svg"></div>
+  <div class="case clair"><img src="../logo/svg/logo-vertical-couleur.svg" style="max-height:150px"></div>
+  <div class="case bleu"><img src="../logo/svg/logo-vertical-blanc.svg" style="max-height:150px"></div>
+  <div class="case photo"><img src="../logo/svg/logo-horizontal-blanc.svg"></div>
+  <div class="case fonce"><img src="../logo/svg/icone-blanc.svg" style="max-height:90px"></div>
+</div>
+
+<h2>2. Lisibilité en petites tailles (icône : 64 / 48 / 32 / 16 px — usage favicon &amp; app icon)</h2>
+<div class="petites">
+  <div><img src="../logo/svg/icone-couleur.svg" width="64" height="64"><br>64 px</div>
+  <div><img src="../logo/svg/icone-couleur.svg" width="48" height="48"><br>48 px</div>
+  <div><img src="../logo/svg/icone-couleur.svg" width="32" height="32"><br>32 px</div>
+  <div><img src="../logo/svg/icone-couleur.svg" width="16" height="16"><br>16 px</div>
+  <div style="background:#0F172A;border-radius:8px;padding:8px;color:#94a3b8"><img src="../logo/svg/icone-blanc.svg" width="32" height="32"><br>32 px fond foncé</div>
+</div>
+
+<h2>3. Icône seule — 4 versions</h2>
+<div class="grille">
+  <div class="case clair"><img src="../logo/svg/icone-couleur.svg" style="max-height:90px"></div>
+  <div class="case clair"><img src="../logo/svg/icone-monochrome.svg" style="max-height:90px"></div>
+  <div class="case clair"><img src="../logo/svg/icone-noir.svg" style="max-height:90px"></div>
+  <div class="case fonce"><img src="../logo/svg/icone-blanc.svg" style="max-height:90px"></div>
+</div>
+</body>
+</html>

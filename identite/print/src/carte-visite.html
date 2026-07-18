@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: 85mm 55mm; margin: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: Inter, sans-serif; }
+  .face { width: 85mm; height: 55mm; page-break-after: always; position: relative; overflow: hidden; }
+  /* RECTO : logo sur fond bleu */
+  .recto { background: linear-gradient(125deg, #084F86, #0A6EBD 60%, #1587DB); display: flex; align-items: center; justify-content: center; }
+  .recto img { width: 62mm; }
+  .recto .arc { position: absolute; right: -18mm; bottom: -22mm; width: 45mm; height: 45mm; border: 2.6mm solid rgba(245,158,11,.9);
+               border-radius: 50%; border-left-color: transparent; border-top-color: transparent; transform: rotate(15deg); }
+  /* VERSO : coordonnées */
+  .verso { background: #fff; padding: 6mm 7mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .verso .bande { position: absolute; top: 0; left: 0; right: 0; height: 2.6mm; background: linear-gradient(90deg, #0A6EBD 60%, #F59E0B); }
+  .verso .haut { display: flex; align-items: center; gap: 3mm; margin-top: 1.5mm; }
+  .verso .haut img { width: 12mm; }
+  .verso .nom { font-family: Poppins, sans-serif; font-weight: 700; font-size: 5.4mm; color: #084F86; }
+  .verso .nom span { color: #F59E0B; }
+  .verso .role { font-size: 3mm; color: #64748b; letter-spacing: .4mm; }
+  .verso .infos { font-size: 3.1mm; color: #374151; line-height: 1.75; }
+  .verso .infos b { color: #0A6EBD; }
+</style></head>
+<body>
+  <div class="face recto">
+    <div class="arc"></div>
+    <img src="../../logo/svg/logo-vertical-blanc.svg">
+  </div>
+  <div class="face verso">
+    <div class="bande"></div>
+    <div class="haut">
+      <img src="../../logo/svg/icone-couleur.svg">
+      <div>
+        <div class="nom">Evasion<span>Voyage</span></div>
+        <div class="role">PLATEFORME DE RÉSERVATION DE VOYAGES</div>
+      </div>
+    </div>
+    <div class="infos">
+      <b>Salma Barry</b> — Fondatrice<br>
+      📞 +221 77 145 49 28 (WhatsApp)<br>
+      ✉ contact@evasionvoyage.com<br>
+      📍 Dakar, Sénégal — 🌍 evasionvoyage.com
+    </div>
+  </div>
+</body></html>

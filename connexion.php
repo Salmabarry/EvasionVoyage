@@ -13,12 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (!$errors) {
-    $stmt = db()->prepare('SELECT id, first_name, last_name, email, password_hash, is_admin FROM users WHERE email = ?');
+    $stmt = db()->prepare('SELECT id, first_name, last_name, email, password_hash, is_admin, active FROM users WHERE email = ?');
     $stmt->execute([$oldEmail]);
     $user = $stmt->fetch();
 
     if (!$user || !password_verify($password, $user['password_hash'])) {
       $errors[] = 'Email ou mot de passe incorrect.';
+    } elseif (isset($user['active']) && !$user['active']) {
+      $errors[] = 'Ce compte a été désactivé. Contactez-nous pour plus d\'informations.';
     } else {
       login_user($user);
       $defaultRedirect = $user['is_admin'] ? 'admin/index.php' : 'index.php';

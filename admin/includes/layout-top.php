@@ -9,10 +9,13 @@ $pageSubtitle = $pageSubtitle ?? '';
 
 $unreadMessages = (int) db()->query("SELECT COUNT(*) FROM contact_messages WHERE status = 'nouveau'")->fetchColumn();
 $pendingBookings = (int) db()->query("SELECT COUNT(*) FROM bookings WHERE status = 'en_attente'")->fetchColumn();
+$pendingReviews = (int) db()->query("SELECT COUNT(*) FROM reviews WHERE status = 'en_attente'")->fetchColumn();
 
 $adminNav = [
   ['slug' => 'index', 'href' => 'index.php', 'label' => 'Vue d\'ensemble', 'icon' => 'layout-dashboard'],
   ['slug' => 'bookings', 'href' => 'bookings.php', 'label' => 'Réservations', 'icon' => 'calendar-check', 'badge' => $pendingBookings],
+  ['slug' => 'offres', 'href' => 'offres.php', 'label' => 'Offres', 'icon' => 'tags'],
+  ['slug' => 'avis', 'href' => 'avis.php', 'label' => 'Avis clients', 'icon' => 'message-square-heart', 'badge' => $pendingReviews],
   ['slug' => 'utilisateurs', 'href' => 'utilisateurs.php', 'label' => 'Utilisateurs', 'icon' => 'users'],
   ['slug' => 'destinations', 'href' => 'destinations.php', 'label' => 'Destinations', 'icon' => 'map-pinned'],
   ['slug' => 'messages', 'href' => 'messages.php', 'label' => 'Messages', 'icon' => 'mail', 'badge' => $unreadMessages],
