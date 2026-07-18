@@ -1,0 +1,5 @@
+
+# Dechets macOS (ne jamais les recommiter)
+._*
+**/._*
+.DS_Store
