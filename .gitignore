@@ -3,3 +3,6 @@
 ._*
 **/._*
 .DS_Store
+
+# Configuration d'outils locaux
+.claude/

@@ -85,6 +85,7 @@ EvasionVoyage/
 
 ## 📑 Documents du projet
 
+- [Documentation technique](./docs/documentation-technique.md) et [documentation utilisateur](./docs/documentation-utilisateur.md)
 - [Cahier des charges](./Cahier_des_charges_Identite_Visuelle_EvasionVoyage.md) et [modèle de données](./Modele_Donnees_EvasionVoyage.md)
 - [Conformité au cahier des charges](./CONFORMITE_CAHIER_DES_CHARGES.md) — audit point par point
 - [Charte graphique (PDF)](./identite/charte/charte-graphique.pdf) et [guide d'utilisation de la marque](./identite/charte/guide-utilisation.pdf)
